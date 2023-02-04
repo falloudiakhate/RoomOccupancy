@@ -1,65 +1,79 @@
-Room Occupancy API
+# Room Occupancy API
 
 This is a RESTful API for collecting and retrieving room occupancy data from various sensors. The API is designed to be flexible and scalable, and it can handle a large number of sensors and observations.
 
-Features
-Accept incoming sensor data from various sources through a webhook endpoint
-Store sensor data in memory for fast retrieval
-Retrieve sensor data for a specific instant in time or for the current occupancy of a room
-Return a list of all sensors connected to the API
+## Features
+* Accept incoming sensor data from various sources through a webhook endpoint
+* Store sensor data in memory for fast retrieval
+* Retrieve sensor data for a specific instant in time or for the current occupancy of a room
+* Return a list of all sensors connected to the API
 
-Endpoints
+## Endpoints
+**POST**
+``` api/webhook ```
+* An endpoint to be called by People Counters to send the results
+of the observations.
+The data should be in the following format:
 
-
-api/sensors
-
-GET
-
-Retrieve a list of all sensors connected to the API
-
-api/occupancy/<sensor>/
-GET
-Retrieve the occupancy data for a particular sensor. An optional atInstant query parameter can be used to retrieve data for a specific instant in time.
-
-/webhook_listener/
-POST
-Accept incoming sensor data from various sources. The data should be in the following format:
-
-json
-Copy code
+```json
 {
     "sensor": "abc",
     "ts": "2022-01-01T00:00:00Z",
     "in_count": 1,
     "out_count": 0
 }
-Requirements
-Python 3.x
-Django
-Django Rest Framework
-Installation
-Clone the repository to your local machine:
-bash
-Copy code
-git clone https://github.com/<username>/room_occupancy_api.git
-Navigate to the cloned directory:
-bash
-Copy code
-cd room_occupancy_api
-Install the required packages:
-Copy code
+``` 
+
+* Retrieve a list of all sensors connected to the API
+
+**GET**
+```api/sensors```
+
+* Retrieve the occupancy data for a particular sensor. An optional atInstant query parameter can be used to retrieve data for a specific instant in time.
+
+**GET**
+```sensors/<sensor>/occupancy``` or 
+```sensors/<sensor>/occupancy?atInstant=<instant>```
+
+## Requirements
+```
+Django==4.1.3
+django-cors-headers==3.13.0
+django-extensions==3.0.2
+django-filter==22.1
+django-rest-swagger==2.2.0
+djangorestframework==3.14.0
+```
+
+## Installation and Testing
+
+* Clone the repository to your local machine:
+
+```git clone https://github.com/falloudiakhate/RoomOccupancy```
+
+* Navigate to the cloned directory:
+
+```
+cd RoomOccupancy
+```
+
+* Install the required packages:
+
+```
 pip install -r requirements.txt
-Run the API:
-Copy code
+```
+
+* Run the API:
+
+```
 python manage.py runserver
-Testing
+```
+
+* Testing
+
 To run the API tests, use the following command:
 
-bash
-Copy code
-python manage.py test API
-Contributing
-Contributions are welcome! If you would like to contribute to the project, please open a pull request.
+```
+python manage.py test
+```
 
-License
-This project is licensed under the MIT License.
