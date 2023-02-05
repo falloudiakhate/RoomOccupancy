@@ -7,9 +7,21 @@ from django.core.cache import cache
 from rest_framework import status
 
 
+
 @api_view(['POST'])
 @csrf_exempt
 def webhook_listener(request):
+    """
+    An endpoint to be called by People Counters to send the results of the observations.
+    The data should be in the following format:
+        {
+            "sensor": "abc",
+            "ts": "2022-01-01T00:00:00Z",
+            "in_count": 1,
+            "out_count": 0
+        }
+    """
+
     # Deserialize the incoming data
     serializer = ObservationSerializer(data=request.data)
 
