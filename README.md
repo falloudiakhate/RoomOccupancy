@@ -91,6 +91,8 @@ pip install -r requirements.txt
 * Run the API:
 
 ```
+python manage.py makemigrations
+python manage.py migrate
 python manage.py runserver
 ```
 
